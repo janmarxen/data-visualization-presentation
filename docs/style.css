@@ -7,7 +7,7 @@
 
 body {
     font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
-    background: linear-gradient(135deg, #1a1d29 0%, #2d3748 50%, #1a1d29 100%);
+    background: #4a5568;
     color: #e2e8f0;
     min-height: 100vh;
     width: 100vw;
@@ -15,7 +15,7 @@ body {
 }
 
 .slide {
-    background: linear-gradient(135deg, #1e2433 0%, #252d3d 100%);
+    background: white;
     width: 90vw;
     max-width: 1280px;
     aspect-ratio: 16/9;
@@ -34,31 +34,31 @@ body {
 .slide h1 {
     font-size: 3.2rem;
     margin-bottom: 35px;
-    color: #e8eef5;
+    color: #1a202c;
     text-align: center;
     font-weight: 700;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.1);
 }
 
 .slide h2 {
     font-size: 2.6rem;
     margin-bottom: 40px;
-    color: #a5b9d8;
-    border-bottom: 4px solid #4a90e2;
+    color: #2d3748;
+    border-bottom: 4px solid #4a5568;
     padding-bottom: 15px;
     font-weight: 600;
 }
 
 .slide h3 {
     font-size: 1.9rem;
-    color: #cbd5e0;
+    color: #2d3748;
     margin-bottom: 25px;
     font-weight: 500;
 }
 
 .slide h4 {
     font-size: 1.5rem;
-    color: #a0aec0;
+    color: #4a5568;
     margin-bottom: 15px;
     font-weight: 500;
 }
@@ -74,7 +74,7 @@ body {
     padding-left: 35px;
     position: relative;
     line-height: 1.7;
-    color: #cbd5e0;
+    color: #2d3748;
 }
 
 .slide li:before {
@@ -88,16 +88,16 @@ body {
 }
 
 .highlight {
-    background: linear-gradient(120deg, #4a90e2 0%, #357abd 100%);
+    background: linear-gradient(120deg, #3b82f6 0%, #2563eb 100%);
     color: white;
     padding: 3px 10px;
     border-radius: 6px;
     font-weight: 600;
-    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.4);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
 }
 
 .tech-highlight {
-    background: linear-gradient(120deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(120deg, #60a5fa 0%, #3b82f6 100%);
     color: white;
     padding: 3px 10px;
     border-radius: 6px;
@@ -105,7 +105,7 @@ body {
 }
 
 .warning-highlight {
-    background: linear-gradient(120deg, #f6993f 0%, #f59e0b 100%);
+    background: linear-gradient(120deg, #1e40af 0%, #1e3a8a 100%);
     color: white;
     padding: 3px 10px;
     border-radius: 6px;
@@ -147,17 +147,17 @@ body {
 }
 
 .contact-item {
-    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
     color: white;
     padding: 12px 24px;
     border-radius: 30px;
     font-size: 1.1rem;
     font-weight: 500;
-    box-shadow: 0 6px 12px rgba(74, 144, 226, 0.3);
+    box-shadow: 0 6px 12px rgba(59, 130, 246, 0.3);
 }
 
 .chapter-divider {
-    background: linear-gradient(90deg, #4a90e2 0%, #667eea 100%);
+    background: linear-gradient(90deg, #1a202c 0%, #4a5568 100%);
     height: 8px;
     border-radius: 4px;
     margin: 30px 0;
