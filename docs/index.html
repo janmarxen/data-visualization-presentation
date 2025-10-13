@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>t-SNE for Graph Layouts - Data Visualization Presentation</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .slide-frame {
+            width: 90vw;
+            max-width: 1280px;
+            aspect-ratio: 16/9;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            background: white;
+            margin: 40px auto;
+            display: block;
+        }
+        .nav-arrows {
+            display: flex;
+            gap: 8px;
+            margin-left: 24px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+        .arrow-btn {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(74, 144, 226, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .arrow-btn:hover {
+            background: linear-gradient(135deg, #357abd 0%, #2868ab 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.5);
+        }
+        .arrow-btn:disabled {
+            background: #4a5568;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .slide-counter {
+            text-align: center;
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            margin-left: 20px;
+            display: inline-block;
+            box-shadow: 0 6px 15px rgba(74, 144, 226, 0.4);
+        }
+        .progress-bar {
+            background: rgba(74, 144, 226, 0.15);
+            height: 6px;
+            border-radius: 3px;
+            margin: 15px auto 30px;
+            max-width: 800px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #4a90e2 0%, #667eea 100%);
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+        .slide-title {
+            text-align: center;
+            color: #e2e8f0;
+            font-size: 1.2rem;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-title" id="slideTitle">t-SNE for Graph Layouts: Visualizing High-Dimensional Data</div>
+    
+    <div class="slide-counter" id="slideCounter">1 / 12</div>
+    
+    <div class="nav-arrows">
+        <button class="arrow-btn" onclick="previousSlide()" id="prevBtn">‹</button>
+        <button class="arrow-btn" onclick="nextSlide()" id="nextBtn">›</button>
+    </div>
+    
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 8.33%"></div>
+    </div>
+    
+    <div id="slideContainer"></div>
+    
+    <script>
+        const slides = [
+            // Title and Introduction
+            { file: 'slides/01-title.html', title: 't-SNE for Graph Layouts' },
+            { file: 'slides/02-problem-description.html', title: 'The Challenge of Graph Layouts' },
+            { file: 'slides/03-tsne-promise.html', title: 'The Promise of t-SNE' },
+            { file: 'slides/04-distance-vs-neighborhood.html', title: 'Distance vs Neighborhood Preserving' },
+            
+            // Mathematical Explanation (slides 5-7)
+            { file: 'slides/05-mathematical-foundation.html', title: 'Mathematical Foundation' },
+            { file: 'slides/06-optimization-problem.html', title: 'The Optimization Problem' },
+            { file: 'slides/07-tsne-for-graphs.html', title: 't-SNE for Graph Layouts' },
+            
+            // Results and Evaluation
+            { file: 'slides/08-results.html', title: 'Visual Results' },
+            { file: 'slides/09-evaluation.html', title: 'Evaluation & Metrics' },
+            { file: 'slides/10-modern-alternatives.html', title: 'What About Today?' },
+            
+            // Closing
+            { file: 'closing.html', title: 'Thank You' }
+        ];
+        
+        let currentSlide = 0;
+        const slideCounter = document.getElementById('slideCounter');
+        const slideContainer = document.getElementById('slideContainer');
+        const slideTitle = document.getElementById('slideTitle');
+        const progressFill = document.getElementById('progressFill');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function updateUI() {
+            const slide = slides[currentSlide];
+            slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+            slideTitle.textContent = slide.title;
+            
+            // Update progress bar
+            const progress = ((currentSlide + 1) / slides.length) * 100;
+            progressFill.style.width = `${progress}%`;
+            
+            // Update button states
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+        }
+
+        function showSlide(n) {
+            currentSlide = Math.max(0, Math.min(n, slides.length - 1));
+            const slide = slides[currentSlide];
+            
+            fetch(slide.file)
+                .then(response => response.text())
+                .then(html => {
+                    // Extract only the content inside <body>
+                    const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+                    slideContainer.innerHTML = bodyMatch ? bodyMatch[1] : html;
+                    updateUI();
+                    
+                    // Auto-scroll to center the slide content
+                    setTimeout(() => {
+                        slideContainer.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'start',
+                            inline: 'nearest'
+                        });
+                    }, 100);
+                })
+                .catch(error => {
+                    console.error('Error loading slide:', error);
+                    slideContainer.innerHTML = '<div class="slide"><h1>Error loading slide</h1></div>';
+                    updateUI();
+                });
+        }
+        
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+        
+        function previousSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            }
+        });
+        
+        // Initial load
+        showSlide(0);
+    </script>
+</body>
+</html>

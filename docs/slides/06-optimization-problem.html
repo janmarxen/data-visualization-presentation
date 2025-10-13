@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimization Problem</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="slide active">
+        <h2>The Optimization Problem</h2>
+        
+        <div class="center-content">
+            <div style="max-width: 950px; margin: 0 auto;">
+                
+                <!-- Objective Function -->
+                <div class="tech-card" style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); border-left: 4px solid #ffc107; margin-bottom: 25px; padding: 25px;">
+                    <h3 style="color: #856404; margin-bottom: 15px;">🎯 Minimize Kullback-Leibler Divergence</h3>
+                    <p style="color: #856404; font-size: 1.05rem; margin-bottom: 15px;">
+                        Find low-dimensional coordinates <strong>y<sub>i</sub></strong> that minimize:
+                    </p>
+                    <div style="background: white; padding: 20px; border-radius: 8px; margin: 10px 0;">
+                        <code style="font-size: 1.3rem; color: #d63384; display: block; text-align: center;">
+                            KL(P||Q) = Σ<sub>i</sub> Σ<sub>j</sub> p<sub>ij</sub> log(p<sub>ij</sub> / q<sub>ij</sub>)
+                        </code>
+                    </div>
+                </div>
+                
+                <!-- Intuitive Explanation -->
+                <div class="tech-card" style="background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); border-left: 4px solid #28a745; margin-bottom: 25px; padding: 25px;">
+                    <h3 style="color: #155724; margin-bottom: 15px;">💡 What does this mean?</h3>
+                    <ul style="color: #155724; font-size: 1.1rem; margin: 0; line-height: 1.8;">
+                        <li><strong>p<sub>ij</sub></strong>: Similarity in high-dimensional space (original data)</li>
+                        <li><strong>q<sub>ij</sub></strong>: Similarity in low-dimensional space (visualization)</li>
+                        <li><strong>Goal:</strong> Make q<sub>ij</sub> match p<sub>ij</sub> as closely as possible</li>
+                        <li><strong>Effect:</strong> Points close in high-D stay close in low-D; distant points can be farther apart</li>
+                    </ul>
+                </div>
+                
+                <!-- Gradient Descent -->
+                <div class="tech-card" style="background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%); border-left: 4px solid #17a2b8; padding: 25px;">
+                    <h3 style="color: #0c5460; margin-bottom: 15px;">⚙️ Solved via Gradient Descent</h3>
+                    <p style="color: #0c5460; font-size: 1.05rem; margin: 0;">
+                        Iteratively update point positions to reduce KL divergence, typically over 1000+ iterations with momentum and early exaggeration phases.
+                    </p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>

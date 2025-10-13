@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>t-SNE for Graph Layouts</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="slide active">
+        <h2>How is t-SNE Used for Graph Layouts?</h2>
+        
+        <div class="center-content">
+            <div style="max-width: 900px; margin: 0 auto;">
+                
+                <!-- Graph Representation -->
+                <div class="tech-card" style="background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%); border-left: 4px solid #17a2b8; margin-bottom: 25px; padding: 25px;">
+                    <h3 style="color: #0c5460; margin-bottom: 15px;">1️⃣ Graph Representation</h3>
+                    <p style="color: #0c5460; font-size: 1.1rem; margin: 0;">
+                        Convert graph nodes into high-dimensional feature vectors using:
+                    </p>
+                    <ul style="color: #0c5460; font-size: 1.05rem; margin-top: 10px; line-height: 1.7;">
+                        <li><strong>Node embeddings</strong> (e.g., Node2Vec, DeepWalk)</li>
+                        <li><strong>Adjacency matrix</strong> representations</li>
+                        <li><strong>Feature vectors</strong> (node attributes, degrees, etc.)</li>
+                    </ul>
+                </div>
+                
+                <!-- Distance Matrix -->
+                <div class="tech-card" style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); border-left: 4px solid #ffc107; margin-bottom: 25px; padding: 25px;">
+                    <h3 style="color: #856404; margin-bottom: 15px;">2️⃣ Compute Similarities</h3>
+                    <p style="color: #856404; font-size: 1.1rem; margin: 0;">
+                        Calculate pairwise distances or use graph-based distances (shortest path, random walk probabilities) to build the high-dimensional similarity matrix <strong>P</strong>.
+                    </p>
+                </div>
+                
+                <!-- Apply t-SNE -->
+                <div class="tech-card" style="background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); border-left: 4px solid #28a745; padding: 25px;">
+                    <h3 style="color: #155724; margin-bottom: 15px;">3️⃣ Embed and Visualize</h3>
+                    <p style="color: #155724; font-size: 1.1rem; margin: 0;">
+                        Apply t-SNE to project nodes into 2D space, where:
+                    </p>
+                    <ul style="color: #155724; font-size: 1.05rem; margin-top: 10px; line-height: 1.7;">
+                        <li><strong>Nearby nodes</strong> → Similar/connected in original graph</li>
+                        <li><strong>Clusters</strong> → Communities or densely connected subgraphs</li>
+                        <li><strong>Outliers</strong> → Loosely connected or anomalous nodes</li>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>

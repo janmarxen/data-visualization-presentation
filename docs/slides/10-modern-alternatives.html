@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Alternatives</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="slide active">
+        <h2>What About Today?</h2>
+        
+        <div class="center-content">
+            <div style="max-width: 950px; margin: 0 auto;">
+                
+                <!-- Current Status -->
+                <div class="tech-card" style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); border-left: 4px solid #ffc107; margin-bottom: 25px; padding: 25px;">
+                    <h3 style="color: #856404; margin-bottom: 15px;">📊 t-SNE's Legacy</h3>
+                    <p style="color: #856404; font-size: 1.1rem; margin: 0;">
+                        Still widely used (2008-present), especially in bioinformatics, single-cell analysis, and exploratory data analysis. However, <strong>computational cost</strong> (O(n²)) and <strong>non-deterministic nature</strong> led to new developments.
+                    </p>
+                </div>
+                
+                <!-- Modern Alternatives -->
+                <div class="tech-card" style="background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); border-left: 4px solid #28a745; margin-bottom: 20px; padding: 25px;">
+                    <h3 style="color: #155724; margin-bottom: 15px;">🚀 Modern Methods (2018+)</h3>
+                    
+                    <div style="margin-top: 15px;">
+                        <div style="margin-bottom: 15px;">
+                            <h4 style="color: #0c4128; margin-bottom: 8px;">UMAP (2018)</h4>
+                            <p style="color: #155724; font-size: 1.05rem; margin: 0;">
+                                <strong>Faster</strong> (can handle millions of points), <strong>preserves global structure better</strong>, based on manifold theory and topology. Now the default in many single-cell genomics tools.
+                            </p>
+                        </div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <h4 style="color: #0c4128; margin-bottom: 8px;">Graph Neural Networks (GNNs)</h4>
+                            <p style="color: #155724; font-size: 1.05rem; margin: 0;">
+                                Direct learning of graph representations (GraphSAGE, GAT), better for downstream tasks but less focused on pure visualization.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: #0c4128; margin-bottom: 8px;">PaCMAP (2021)</h4>
+                            <p style="color: #155724; font-size: 1.05rem; margin: 0;">
+                                Balances local and global structure preservation, faster than t-SNE, more stable than UMAP.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Takeaway -->
+                <div class="tech-card" style="background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%); border-left: 4px solid #17a2b8; padding: 25px;">
+                    <h3 style="color: #0c5460; margin-bottom: 15px;">💡 The Verdict</h3>
+                    <p style="color: #0c5460; font-size: 1.1rem; margin: 0;">
+                        t-SNE pioneered neighborhood-preserving embeddings but has largely been <strong>superseded by UMAP</strong> for most applications due to speed and scalability. Still valuable for small-to-medium datasets and understanding the core principles.
+                    </p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>

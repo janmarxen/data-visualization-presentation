@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluation Metrics</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="slide active">
+        <h2>Evaluation & Metrics</h2>
+        
+        <div class="center-content">
+            <div style="max-width: 900px; margin: 0 auto;">
+                
+                <!-- Metrics Overview -->
+                <div class="tech-card" style="background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%); border-left: 4px solid #17a2b8; margin-bottom: 25px; padding: 25px;">
+                    <h3 style="color: #0c5460; margin-bottom: 15px;">📏 Common Evaluation Metrics</h3>
+                    <p style="color: #0c5460; font-size: 1.05rem; margin: 0;">
+                        How do we measure the quality of graph layout visualizations?
+                    </p>
+                </div>
+                
+                <!-- Metric 1: Trustworthiness -->
+                <div class="tech-card" style="background: #f8f9fa; border: 2px solid #28a745; margin-bottom: 20px; padding: 20px;">
+                    <h3 style="color: #155724; margin-bottom: 12px;">1️⃣ Trustworthiness</h3>
+                    <p style="color: #333; font-size: 1.05rem; margin: 0; line-height: 1.7;">
+                        <strong>Measures:</strong> Are points that are close in the visualization actually close in the original space?<br>
+                        <strong>Penalty:</strong> False neighbors (points that appear close but weren't originally)
+                    </p>
+                </div>
+                
+                <!-- Metric 2: Continuity -->
+                <div class="tech-card" style="background: #f8f9fa; border: 2px solid #ffc107; margin-bottom: 25px; padding: 20px;">
+                    <h3 style="color: #856404; margin-bottom: 12px;">2️⃣ Continuity</h3>
+                    <p style="color: #333; font-size: 1.05rem; margin: 0; line-height: 1.7;">
+                        <strong>Measures:</strong> Are points that were close in the original space still close in the visualization?<br>
+                        <strong>Penalty:</strong> Missing neighbors (nearby points that got separated)
+                    </p>
+                </div>
+                
+                <!-- t-SNE Position -->
+                <div class="tech-card" style="background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); border-left: 4px solid #28a745; padding: 25px;">
+                    <h3 style="color: #155724; margin-bottom: 15px;">🎯 How does t-SNE Position Itself?</h3>
+                    <p style="color: #155724; font-size: 1.1rem; margin: 0; line-height: 1.8;">
+                        t-SNE <strong>prioritizes trustworthiness</strong> — it works hard to avoid placing dissimilar points nearby. This makes clusters very distinct but may sacrifice some continuity (some neighbors might be farther apart than ideal). The trade-off creates <strong>clearer, more interpretable visualizations</strong> at the cost of some local distortions.
+                    </p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>
