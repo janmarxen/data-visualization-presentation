@@ -1,54 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Computational Aspects of tsNET</title>
-    <link rel="stylesheet" href="../style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tsNET: Implementation</title>
+  <link rel="stylesheet" href="../style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    .why-section {
+      background: #e8f5e9;
+      border: 2px solid #4caf50;
+      padding: 16px;
+      border-radius: 8px;
+      margin-top: 12px;
+      font-size: 0.95rem;
+      color: #1b5e20;
+    }
+    .why-title {
+      font-weight: 700;
+      color: #2e7d32;
+      margin-bottom: 8px;
+    }
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 12px 0;
+    }
+    .comparison-item {
+      background: #fff;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #dee2e6;
+    }
+    .question-box {
+      background: #fff8e1;
+      border-left: 4px solid #ffc107;
+      padding: 12px 16px;
+      margin: 8px 0;
+      font-size: 0.95rem;
+    }
+  </style>
 </head>
 <body>
-    <div class="slide active">
-        <h2>Computational Aspects of tsNET</h2>
-        
-        <div class="center-content">
-            <div style="max-width: 900px; margin: 0 auto;">
-                
-                <!-- Graph Representation -->
-                <div class="tech-card" style="background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%); border-left: 4px solid #17a2b8; margin-bottom: 25px; padding: 25px;">
-                    <h3 style="color: #0c5460; margin-bottom: 15px;">1️⃣ Graph Representation</h3>
-                    <p style="color: #0c5460; font-size: 1.1rem; margin: 0;">
-                        Convert graph nodes into high-dimensional feature vectors using:
-                    </p>
-                    <ul style="color: #0c5460; font-size: 1.05rem; margin-top: 10px; line-height: 1.7;">
-                        <li><strong>Node embeddings</strong> (e.g., Node2Vec, DeepWalk)</li>
-                        <li><strong>Adjacency matrix</strong> representations</li>
-                        <li><strong>Feature vectors</strong> (node attributes, degrees, etc.)</li>
-                    </ul>
-                </div>
-                
-                <!-- Distance Matrix -->
-                <div class="tech-card" style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); border-left: 4px solid #ffc107; margin-bottom: 25px; padding: 25px;">
-                    <h3 style="color: #856404; margin-bottom: 15px;">2️⃣ Compute Similarities</h3>
-                    <p style="color: #856404; font-size: 1.1rem; margin: 0;">
-                        Calculate pairwise distances or use graph-based distances (shortest path, random walk probabilities) to build the high-dimensional similarity matrix <strong>P</strong>.
-                    </p>
-                </div>
-                
-                <!-- Apply t-SNE -->
-                <div class="tech-card" style="background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); border-left: 4px solid #28a745; padding: 25px;">
-                    <h3 style="color: #155724; margin-bottom: 15px;">3️⃣ Embed and Visualize</h3>
-                    <p style="color: #155724; font-size: 1.1rem; margin: 0;">
-                        Apply t-SNE to project nodes into 2D space, where:
-                    </p>
-                    <ul style="color: #155724; font-size: 1.05rem; margin-top: 10px; line-height: 1.7;">
-                        <li><strong>Nearby nodes</strong> → Similar/connected in original graph</li>
-                        <li><strong>Clusters</strong> → Communities or densely connected subgraphs</li>
-                        <li><strong>Outliers</strong> → Loosely connected or anomalous nodes</li>
-                    </ul>
-                </div>
-                
+  <div class="slide active">
+    <h2>tsNET: Implementation</h2>
+
+    <div class="center-content">
+      <div style="max-width: 950px; margin: 0 auto;">
+
+        <!-- Step 8: Computational Aspects -->
+        <div class="tech-card" style="background: #f8f9fa; border: 2px solid #6c757d;
+             margin-bottom: 20px; padding: 20px;">
+          <h3 style="color: #343a40; margin-bottom: 12px;">8️⃣ Computational Aspects</h3>
+          
+          <div style="background: #fff; padding: 16px; border-radius: 6px; border: 1px solid #dee2e6; margin-bottom: 16px;">
+            <h4 style="color: #495057; margin: 0 0 10px 0;">Optimization with Momentum-based Gradient Descent</h4>
+            <p style="color: #333; font-size: 0.95rem; margin: 0;">
+              As in classical t-SNE, minimize the cost function \(C\) with accumulated velocity to escape local minima.
+            </p>
+          </div>
+
+        <div style="background: #fff; padding: 16px; border-radius: 6px; border: 1px solid #dee2e6; margin-bottom: 16px;">
+        <h4 style="color: #495057; margin: 0 0 10px 0;">Complexity</h4>
+        <div style="color: #333; font-size: 0.95rem;">
+            <div style="margin-bottom: 8px;">
+            <strong>Space:</strong> \(\mathcal{O}(N^2)\)<br>
+            <span style="color: #666; font-size: 0.9rem; margin-left: 20px;">
+                Stores distance matrix \(d_{ij}\) and probability matrices \(p_{ij}\), \(q_{ij}\)
+            </span>
+            </div>
+            <div>
+            <strong>Time:</strong> \(\mathcal{O}(tN^2)\)<br>
+            <span style="color: #666; font-size: 0.9rem; margin-left: 20px;">
+                Each iteration computes gradients over all \(N^2\) node pairs
+            </span><br>
             </div>
         </div>
+        
+        <div style="background: #f8f9fa; padding: 10px; border-radius: 4px; margin-top: 12px; font-size: 0.9rem; color: #666;">
+            <strong style="color: #495057;">Note:</strong> One-time \(\mathcal{O}(N^2)\) preprocessing for shortest-path distances.
+        </div>
+        </div>
+
+          <div class="why-section">
+            <div class="why-title">⚡ Key Efficiency Feature</div>
+            The <strong>compression term</strong> (term 2 in cost function) significantly reduces optimization steps \(t\) - a distinctive advantage.
+          </div>
+        </div>
+
+        <!-- Step 9: Open Questions -->
+        <div class="tech-card" style="background: #f8f9fa; border: 2px solid #ffc107;
+             padding: 20px;">
+          <h3 style="color: #856404; margin-bottom: 12px;">9️⃣ Open Question</h3>
+
+          <div class="question-box">
+            <strong style="color: #f57c00;">🎯 Parameter Tuning</strong><br>
+            <span style="color: #666;"> How to determine optimal \(\lambda_{KL}\), \(\lambda_c\), \(\lambda_r\)?</span>
+          </div>
+      </div>
     </div>
+  </div>
 </body>
 </html>

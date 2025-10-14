@@ -1,58 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tsNET</title>
-    <link rel="stylesheet" href="../style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tsNET: Graph Layout by t-SNE</title>
+  <link rel="stylesheet" href="../style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    .why-section {
+      background: #e8f5e9;
+      border: 2px solid #4caf50;
+      padding: 16px;
+      border-radius: 8px;
+      margin-top: 12px;
+      font-size: 0.95rem;
+      color: #1b5e20;
+    }
+    .why-title {
+      font-weight: 700;
+      color: #2e7d32;
+      margin-bottom: 8px;
+    }
+    .stage-box {
+      background: #fff;
+      border-left: 4px solid #ff9800;
+      padding: 12px 16px;
+      margin: 10px 0;
+      font-size: 0.95rem;
+      border: 1px solid #ffe0b2;
+      color: #000;
+    }
+    .stage-box strong {
+      color: #e65100;
+    }
+  </style>
 </head>
 <body>
-    <div class="slide active">
-        <h2>tsNET</h2>
-        
-        <div class="center-content">
-            <div style="max-width: 950px; margin: 0 auto;">
-                
-                <!-- Objective Function -->
-                <div class="tech-card" style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); border-left: 4px solid #ffc107; margin-bottom: 25px; padding: 25px;">
-                    <h3 style="color: #856404; margin-bottom: 15px;">🎯 Minimize Kullback-Leibler Divergence</h3>
-                    <p style="color: #856404; font-size: 1.05rem; margin-bottom: 15px;">
-                        Find low-dimensional coordinates <strong>y<sub>i</sub></strong> that minimize:
-                    </p>
-                    <div style="background: white; padding: 20px; border-radius: 8px; margin: 10px 0;">
-                        <code style="font-size: 1.3rem; color: #d63384; display: block; text-align: center;">
-                            KL(P||Q) = Σ<sub>i</sub> Σ<sub>j</sub> p<sub>ij</sub> log(p<sub>ij</sub> / q<sub>ij</sub>)
-                        </code>
-                    </div>
-                </div>
-                
-                <!-- Core Idea -->
-                <div class="tech-card" style="background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%); border-left: 4px solid #17a2b8; margin-bottom: 20px; padding: 20px;">
-                    <h3 style="color: #0c5460; margin-bottom: 12px;">Core Idea</h3>
-                    <p style="color: #0c5460; font-size: 1.05rem; margin: 0;">
-                        <strong>Minimize</strong> a cost function \(C\) that balances certain properties:
-                        \[
-                        C = \sum_{i \ne j} p_{ij} \log \frac{p_{ij}}{q_{ij}}
-                        + \frac{\lambda_c}{2N} \sum_i \| y_i \|^2
-                        - \frac{\lambda_r}{2N^2} \sum_{i \ne j} \log(\| y_i - y_j \| + \varepsilon_r)
-                        \]
-                        where
-                        \[
-                        ...
-                        \]
-                    </p>
-                </div>
-                
-                <!-- Gradient Descent -->
-                <div class="tech-card" style="background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%); border-left: 4px solid #17a2b8; padding: 25px;">
-                    <h3 style="color: #0c5460; margin-bottom: 15px;">⚙️ Solved via Gradient Descent</h3>
-                    <p style="color: #0c5460; font-size: 1.05rem; margin: 0;">
-                        Iteratively update point positions to reduce KL divergence, typically over 1000+ iterations with momentum and early exaggeration phases.
-                    </p>
-                </div>
-                
+  <div class="slide active">
+    <h2>tsNET: Graph Layout by t-SNE</h2>
+
+    <div class="center-content">
+      <div style="max-width: 950px; margin: 0 auto;">
+
+        <!-- Step 5: Cost Function -->
+        <div class="tech-card" style="background: #f8f9fa; border: 2px solid #17a2b8;
+             margin-bottom: 20px; padding: 20px;">
+          <h3 style="color: #0c5460; margin-bottom: 12px;">5️⃣ Enhanced Cost Function</h3>
+          
+          <p style="color: #333; font-size: 1rem; margin-bottom: 16px;">
+            \[
+              C = \lambda_{KL}\,C_{KL} + \frac{\lambda_c}{2N}\sum_i \|y_i\|^2 - \frac{\lambda_r}{2N^2}\sum_{\substack{i,j \\ i \ne j}} \log(\|y_i - y_j\| + \varepsilon_r)
+            \]
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px;">
+            <div style="background: #fff; padding: 12px; border-radius: 6px; border: 1px solid #dee2e6;">
+              <strong style="color: #6c757d;">Term 1: KL Divergence</strong>
+              <p style="font-size: 0.9rem; margin: 8px 0 0 0; color: #495057;">
+                Original t-SNE term 
+              </p>
             </div>
+            <div style="background: #fff; padding: 12px; border-radius: 6px; border: 1px solid #dee2e6;">
+              <strong style="color: #fd7e14;">Term 2: Compression</strong>
+              <p style="font-size: 0.9rem; margin: 8px 0 0 0; color: #495057;">
+                Pulls nodes toward origin
+              </p>
+            </div>
+            <div style="background: #fff; padding: 12px; border-radius: 6px; border: 1px solid #dee2e6;">
+              <strong style="color: #20c997;">Term 3: Entropy</strong>
+              <p style="font-size: 0.9rem; margin: 8px 0 0 0; color: #495057;">
+                Repels nodes to prevent clutter 
+              </p>
+            </div>
+          </div>
+
+          <div class="why-section">
+            <div class="why-title">⚙️ Parameter Notes</div>
+            Weights \(\lambda_{KL}\), \(\lambda_c\), and \(\lambda_r\) control each term's impact and <strong>change during optimization</strong>. Regularization constant \(\varepsilon_r = \frac{1}{20}\) handles nearly co-located nodes.
+          </div>
         </div>
+
+        <!-- Step 6: Three-Stage Optimization -->
+        <div class="tech-card" style="background: #f8f9fa; border: 2px solid #28a745;
+             margin-bottom: 20px; padding: 20px;">
+          <h3 style="color: #155724; margin-bottom: 12px;">6️⃣ Three-Stage Optimization (tsNET)</h3>
+          
+          <div class="stage-box">
+            <strong>Stage 1: Random Initialization</strong><br>
+            Initialize 2D positions \(\{y_i\}_{i=1}^N\) randomly
+          </div>
+
+          <div class="stage-box">
+            <strong>Stage 2: Fast Untangling</strong><br>
+            Parameters: \((\lambda_{KL}, \lambda_c, \lambda_r) = (1, 1.2, 0)\)<br>
+          </div>
+
+          <div class="stage-box">
+            <strong>Stage 3: Final Refinement</strong><br>
+            Parameters: \((\lambda_{KL}, \lambda_c, \lambda_r) = (1, 0.01, 0.6)\)<br>
+          </div>
+
+          <div class="why-section">
+            <div class="why-title">💡 Why Three Stages?</div>
+            Stage 2 uses strong compression to untangle the random graph. Stage 3 reduces compression and adds entropy.
+          </div>
+        </div>
+
+        <!-- Step 7: tsNET* Variant -->
+        <div class="tech-card" style="background: #f8f9fa; border: 2px solid #2196f3;
+             padding: 20px;">
+          <h3 style="color: #0d47a1; margin-bottom: 12px;">7️⃣ tsNET* (Improved Variant)</h3>
+          <p style="color: #333; font-size: 0.95rem; margin-bottom: 10px;">
+            <strong>Stage 1:</strong> Initialize with <strong>PivotMDS</strong> instead of random positions<br>
+            <strong>Stage 2:</strong> Use \((\lambda_{KL}, \lambda_c, \lambda_r) = (1, 0.1, 0)\) - lower compression to preserve PivotMDS structure<br>
+            <strong>Stage 3:</strong> Unchanged from tsNET
+          </p>
+        </div>
+
+      </div>
     </div>
+  </div>
 </body>
 </html>

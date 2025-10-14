@@ -68,7 +68,7 @@
           
           <div class="why-section">
             <div class="why-title">⚙️ How to Choose \(\sigma_i\)?</div>
-            Choose \(\sigma_i\) so that the perplexity \(\kappa_i = 2^{-\sum_{j} p_{j|i}\log_2 p_{j|i}}\) matches a target value. Perplexity measures the effective number of neighbors: dense regions need small \(\sigma_i\), sparse regions need large \(\sigma_i\).
+            Dense regions need small \(\sigma_i\), sparse regions need large \(\sigma_i\). Match the perplexity \(\kappa_i = 2^{-\sum_{j} p_{j|i}\log_2 p_{j|i}}\) to the number of neighbors.
           </div>
         </div>
 
@@ -86,8 +86,8 @@
           </p>
           
           <div class="why-section">
-            <div class="why-title">🤔 Why Student's t-Distribution?</div>
-            Solves the <strong>crowding problem</strong>: high-dimensional space has more room than 2D. A Gaussian would squeeze distant points too close together, causing overlapping clusters. The heavy-tailed t-distribution preserves distances better.
+            <div class="why-title">💡 Why Student's t-Distribution? Crowding problem!</div>
+            High-dimensional space has more room than 2D. A Gaussian would squeeze distant points too close together.
           </div>
         </div>
 
@@ -97,7 +97,7 @@
           <h3 style="color: #343a40; margin-bottom: 12px;">4️⃣ Make Them Match (Optimization)</h3>
           
           <p style="color: #333; font-size: 1rem; margin-bottom: 10px;">
-            Minimize the Kullback-Leibler divergence between \(p_{ij}\) and \(q_{ij}\):
+            Minimize the <strong>Kullback-Leibler divergence</strong> between \(p_{ij}\) and \(q_{ij}\):
             \[
               C_{KL} = \sum_{i \ne j} p_{ij}\,\log \frac{p_{ij}}{q_{ij}}
             \]
@@ -105,7 +105,7 @@
           
           <div class="why-section">
             <div class="why-title">💡 What Happens?</div>
-            Moves 2D points so that \(q_{ij}\) matches \(p_{ij}\) (weighted by \(p_{ij}\)). When matched perfectly, \(\log(p_{ij}/q_{ij}) = 0\). Therefore, similar points pull together and dissimilar points push apart.
+            Moves 2D points so that \(q_{ij}\) matches \(p_{ij}\) (weighted by \(p_{ij}\)). When matched perfectly, \(\log(p_{ij}/q_{ij}) = 0\). 
           </div>
         </div>
 
