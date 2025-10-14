@@ -91,7 +91,7 @@
 <body>
     <div class="slide-title" id="slideTitle">t-SNE for Graph Layouts: Visualizing High-Dimensional Data</div>
     
-    <div class="slide-counter" id="slideCounter">1 / 12</div>
+    <div class="slide-counter" id="slideCounter"></div>
     
     <div class="nav-arrows">
         <button class="arrow-btn" onclick="previousSlide()" id="prevBtn">‹</button>
@@ -138,11 +138,11 @@
             const slide = slides[currentSlide];
             slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
             slideTitle.textContent = slide.title;
-            
+
             // Update progress bar
             const progress = ((currentSlide + 1) / slides.length) * 100;
             progressFill.style.width = `${progress}%`;
-            
+
             // Update button states
             prevBtn.disabled = currentSlide === 0;
             nextBtn.disabled = currentSlide === slides.length - 1;
@@ -151,15 +151,25 @@
         function showSlide(n) {
             currentSlide = Math.max(0, Math.min(n, slides.length - 1));
             const slide = slides[currentSlide];
-            
+
+            // show loading placeholder
+            slideContainer.innerHTML = `
+                <div style="display:flex;align-items:center;justify-content:center;height:100%;min-height:360px;\n                font-family:system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;\n                ">
+                    Loading...
+                </div>`;
+
+            // Try to fetch the slide (works when served over HTTP). If fetch fails (e.g., opened via file://), fall back to an iframe.
             fetch(slide.file)
-                .then(response => response.text())
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.text();
+                })
                 .then(html => {
                     // Extract only the content inside <body>
                     const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
                     slideContainer.innerHTML = bodyMatch ? bodyMatch[1] : html;
                     updateUI();
-                    
+
                     // Auto-scroll to center the slide content
                     setTimeout(() => {
                         slideContainer.scrollIntoView({ 
@@ -170,8 +180,15 @@
                     }, 100);
                 })
                 .catch(error => {
-                    console.error('Error loading slide:', error);
-                    slideContainer.innerHTML = '<div class="slide"><h1>Error loading slide</h1></div>';
+                    console.warn('Fetch failed, falling back to iframe for', slide.file, error);
+                    // Create iframe fallback so the presentation still works when opened from the filesystem
+                    const iframe = document.createElement('iframe');
+                    iframe.src = slide.file;
+                    iframe.className = 'slide-frame';
+                    iframe.title = slide.title || 'slide';
+                    // Clear and append iframe
+                    slideContainer.innerHTML = '';
+                    slideContainer.appendChild(iframe);
                     updateUI();
                 });
         }
@@ -199,8 +216,10 @@
             }
         });
         
-        // Initial load
-        showSlide(0);
+    // Initialize UI and then load first slide
+    // Ensure counters/progress reflect slides.length before fetch completes
+    updateUI();
+    showSlide(0);
     </script>
 </body>
 </html>
