@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Optimization Problem</title>
+    <title>tsNET</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
     <div class="slide active">
-        <h2>The Optimization Problem</h2>
+        <h2>tsNET</h2>
         
         <div class="center-content">
             <div style="max-width: 950px; margin: 0 auto;">
@@ -26,15 +26,21 @@
                     </div>
                 </div>
                 
-                <!-- Intuitive Explanation -->
-                <div class="tech-card" style="background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); border-left: 4px solid #28a745; margin-bottom: 25px; padding: 25px;">
-                    <h3 style="color: #155724; margin-bottom: 15px;">💡 What does this mean?</h3>
-                    <ul style="color: #155724; font-size: 1.1rem; margin: 0; line-height: 1.8;">
-                        <li><strong>p<sub>ij</sub></strong>: Similarity in high-dimensional space (original data)</li>
-                        <li><strong>q<sub>ij</sub></strong>: Similarity in low-dimensional space (visualization)</li>
-                        <li><strong>Goal:</strong> Make q<sub>ij</sub> match p<sub>ij</sub> as closely as possible</li>
-                        <li><strong>Effect:</strong> Points close in high-D stay close in low-D; distant points can be farther apart</li>
-                    </ul>
+                <!-- Core Idea -->
+                <div class="tech-card" style="background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%); border-left: 4px solid #17a2b8; margin-bottom: 20px; padding: 20px;">
+                    <h3 style="color: #0c5460; margin-bottom: 12px;">Core Idea</h3>
+                    <p style="color: #0c5460; font-size: 1.05rem; margin: 0;">
+                        <strong>Minimize</strong> a cost function \(C\) that balances certain properties:
+                        \[
+                        C = \sum_{i \ne j} p_{ij} \log \frac{p_{ij}}{q_{ij}}
+                        + \frac{\lambda_c}{2N} \sum_i \| y_i \|^2
+                        - \frac{\lambda_r}{2N^2} \sum_{i \ne j} \log(\| y_i - y_j \| + \varepsilon_r)
+                        \]
+                        where
+                        \[
+                        ...
+                        \]
+                    </p>
                 </div>
                 
                 <!-- Gradient Descent -->
