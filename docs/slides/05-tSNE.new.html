@@ -1,0 +1,72 @@
+<div class="slide active">
+  <h2>t-distributed Stochastic Neighbor Embedding (t-SNE)</h2>
+
+  <div class="center-content">
+    <div style="max-width: 950px; margin: 0 auto;">
+      <!-- Step 1: Distance Computation -->
+      <div class="tech-card" style="border: 2px solid #6f42c1; margin-bottom: 20px;">
+        <h3 style="color: #3c1361; margin-bottom: 12px;">1️⃣ Compute Pairwise Distances \(d_{ij}\) (here: shortest path)</h3>
+      </div>
+
+      <!-- Step 2: High-Dimensional Probabilities -->
+      <div class="tech-card" style="border: 2px solid #17a2b8; margin-bottom: 20px;">
+        <h3 style="color: #0c5460; margin-bottom: 12px;">2️⃣ Measure Similarities in High Dimensions</h3>
+        
+        <p style="color: #333; font-size: 1rem; margin-bottom: 10px;">
+          <strong>a)</strong> Convert distances \(d_{ij}\) into conditional probabilities \(p_{j|i}\) using a Gaussian distribution:
+          \[
+            p_{j|i} = \frac{\exp(-d_{ij}^2 / 2\sigma_i^2)}{\sum_{k \ne i} \exp(-d_{ik}^2 / 2\sigma_i^2)}
+          \]
+          where \(p_{j|i}\) is the probability that \(j\) is a neighbor of \(i\).
+        </p>
+
+        <p style="color: #333; font-size: 0.95rem; margin: 10px 0 0 0;">
+          <strong>b)</strong> Symmetrize to get joint probabilities:
+          \[
+            p_{ij} = \frac{p_{i|j} + p_{j|i}}{2N}, \quad p_{ii} = 0
+          \]
+        </p>
+        
+        <div class="why-section">
+          <div class="why-title">⚙️ How to Choose \(\sigma_i\)?</div>
+          Dense regions need small \(\sigma_i\), sparse regions need large \(\sigma_i\). Match the perplexity \(\kappa_i = 2^{-\sum_{j} p_{j|i}\log_2 p_{j|i}}\) to the number of neighbors.
+        </div>
+      </div>
+
+      <!-- Step 3: Low-Dimensional Probabilities -->
+      <div class="tech-card" style="border: 2px solid #28a745; margin-bottom: 20px;">
+        <h3 style="color: #155724; margin-bottom: 12px;">3️⃣ Measure Similarities in Low Dimensions</h3>
+        
+        <p style="color: #333; font-size: 1rem; margin-bottom: 10px;">
+          Define \(q_{ij}\) in the 2D output space using a heavy-tailed Student's t-distribution:
+          \[
+            q_{ij} = \frac{(1 + \|y_i - y_j\|^2)^{-1}}
+            {\sum_{k \ne l} (1 + \|y_k - y_l\|^2)^{-1}}, \quad q_{ii}=0
+          \]
+        </p>
+        
+        <div class="why-section">
+          <div class="why-title">💡 Why Student's t-Distribution? Crowding problem!</div>
+          High-dimensional space has more room than 2D. A Gaussian would squeeze distant points too close together.
+        </div>
+      </div>
+
+      <!-- Step 4: Optimization -->
+      <div class="tech-card" style="border: 2px solid #6c757d;">
+        <h3 style="color: #343a40; margin-bottom: 12px;">4️⃣ Make Them Match (Optimization)</h3>
+        
+        <p style="color: #333; font-size: 1rem; margin-bottom: 10px;">
+          Minimize the <strong>Kullback-Leibler divergence</strong> between \(p_{ij}\) and \(q_{ij}\):
+          \[
+            C_{KL} = \sum_{i \ne j} p_{ij}\,\log \frac{p_{ij}}{q_{ij}}
+          \]
+        </p>
+        
+        <div class="why-section">
+          <div class="why-title">💡 What Happens?</div>
+          Moves 2D points so that \(q_{ij}\) matches \(p_{ij}\) (weighted by \(p_{ij}\)). When matched perfectly, \(\log(p_{ij}/q_{ij}) = 0\). 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

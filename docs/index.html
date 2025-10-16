@@ -8,7 +8,96 @@
     <meta http-equiv="Expires" content="0">
     <title>t-SNE for Graph Layouts - Data Visualization Presentation</title>
     <link rel="stylesheet" href="style.css">
+    <!-- MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                macros: {
+                    norm: ['\\left\\|#1\\right\\|', 1]
+                }
+            },
+            startup: {
+                pageReady: () => {
+                    return MathJax.startup.defaultPageReady().then(() => {
+                        console.log('MathJax initial typesetting completed');
+                    });
+                }
+            }
+        };
+    </script>
+    <script id="MathJax-script" defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
     <style>
+        /* Common styles for slides */
+        .why-section {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 12px;
+            font-size: 0.95rem;
+            color: #0a3d0a;
+        }
+        .why-title {
+            font-weight: 700;
+            color: #1b4b1b;
+            margin-bottom: 8px;
+        }
+        .stage-box {
+            background: #fff;
+            border-left: 4px solid #ff9800;
+            padding: 12px 16px;
+            margin: 10px 0;
+            font-size: 0.95rem;
+            border: 1px solid #ffe0b2;
+            color: #000;
+        }
+        .stage-box strong {
+            color: #e65100;
+        }
+        .parameter-note {
+            background: #f3e5f5;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-size: 0.95rem;
+        }
+        .parameter-note strong {
+            color: #6a1b9a;
+        }
+        .question-box {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 12px 16px;
+            margin: 8px 0;
+            font-size: 0.95rem;
+        }
+        .tech-card {
+            background: #f8f9fa;
+            border: 2px solid #6c757d;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .center-content {
+            max-width: 950px;
+            margin: 0 auto;
+        }
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 12px 0;
+        }
+        .comparison-item {
+            background: #fff;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+        }
+
+        /* Presentation framework styles */
         .slide-frame {
             width: 90vw;
             max-width: 1280px;
@@ -168,10 +257,17 @@
                     return response.text();
                 })
                 .then(html => {
-                    // Extract only the content inside <body>
-                    const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
-                    slideContainer.innerHTML = bodyMatch ? bodyMatch[1] : html;
+                    // The slides are now just div content without HTML boilerplate
+                    slideContainer.innerHTML = html;
                     updateUI();
+                    
+                    // Process math formulas in the new slide content
+                    if (window.MathJax) {
+                        MathJax.typesetClear([slideContainer]);
+                        MathJax.typesetPromise([slideContainer]).catch(err => {
+                            console.error('MathJax typesetting failed:', err);
+                        });
+                    }
 
                     // Auto-scroll to center the slide content
                     setTimeout(() => {
