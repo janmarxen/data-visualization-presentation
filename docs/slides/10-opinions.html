@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="slide active">
-        <h2>Critical Evaluation: Critiques & What We Liked</h2>
+        <h2>Our Critical Evaluation</h2>
         
         <div class="center-content">
             <div style="max-width: 950px; margin: 0 auto;">
@@ -17,9 +17,10 @@
                 <div class="tech-card" style="background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%); border-left: 4px solid #dc3545; margin-bottom: 25px; padding: 25px;">
                     <h3 style="color: #721c24; margin-bottom: 15px;">🤔 Our Critiques</h3>
                     
-                    <ul style="color: #721c24; font-size: 1.1rem; line-height: 1.9; margin: 0; padding-left: 25px;">
-                        <li><strong>Parameter count claim:</strong> Authors claim "one parameter" (perplexity κ), but cost function has <strong>three lambda parameters</strong> (λ₁, λ₂, λ₃)</li>
-                        <li><strong>Hierarchical consistency:</strong> No guarantee that sibling nodes maintain equal distances to parent. Could a penalty term help?</li>
+                    <ul style="color: #721c24; font-size: 1.05rem; line-height: 1.9; margin: 0; padding-left: 25px;">
+                        <li><strong>"One parameter" claim misleading:</strong> Cost function has <strong>three lambda parameters</strong> (λ₁, λ₂, λ₃) weighting objectives</li>
+                        <li><strong>No sparsity exploitation:</strong> Obvious improvement opportunity missed</li>
+                        <li><strong>Only local preservation:</strong> Distorts global relations</li>
                     </ul>
                 </div>
                 
@@ -27,9 +28,9 @@
                 <div class="tech-card" style="background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); border-left: 4px solid #28a745; padding: 25px;">
                     <h3 style="color: #155724; margin-bottom: 15px;">👍 What We Liked</h3>
                     
-                    <ul style="color: #155724; font-size: 1.1rem; line-height: 1.9; margin: 0; padding-left: 25px;">
-                        <li><strong>Practical benchmark:</strong> Simple laptop setup makes sense for target audience (data analysts, not HPC users)</li>
-                        <li><strong>BUT:</strong> Should include exact hardware specs for reproducibility</li>
+                    <ul style="color: #155724; font-size: 1.05rem; line-height: 1.9; margin: 0; padding-left: 25px;">
+                        <li><strong>Realistic benchmarks:</strong> Simple setup suits target audience (data analysts, not HPC users) — <em>but needs exact hardware specs</em></li>
+                        <li><strong>Strong evaluation narrative:</strong> Consistent graphs + comprehensive method comparisons tell a clear story</li>
                     </ul>
                 </div>
                 

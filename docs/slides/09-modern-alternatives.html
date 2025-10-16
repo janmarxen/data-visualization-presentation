@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluation Metrics</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="slide active">
+        <h2>Current Landscape Evolution (2025)</h2>
+        
+        <div class="center-content">
+            <div style="max-width: 1000px; margin: 0 auto;">
+                
+                <!-- tsNET Computational Approach -->
+                <div class="tech-card" style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); border-left: 4px solid #ffc107; margin-bottom: 25px; padding: 25px;">
+                    <h3 style="color: #856404; margin-bottom: 15px;">⚙️ tsNET</h3>
+                    
+                    <ul style="color: #856404; font-size: 1.05rem; line-height: 1.9; margin: 0; padding-left: 25px;">
+                        <li>Represents the graph as a <strong>complete pairwise distance matrix</strong> D ∈ ℝ<sup>N×N</sup></li>
+                        <li>Uses <strong>graph-theoretic shortest-path distances</strong> (e.g., Floyd-Warshall or Dijkstra)</li>
+                        <li>Time complexity: <strong>O(N²)</strong></li>
+                    </ul>
+                </div>
+                
+                <!-- UMAP Computational Approach -->
+                <div class="tech-card" style="background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); border-left: 4px solid #28a745; margin-bottom: 25px; padding: 25px;">
+                    <h3 style="color: #155724; margin-bottom: 15px;">🚀 UMAP</h3>
+                    
+                    <ul style="color: #155724; font-size: 1.05rem; line-height: 1.9; margin: 0; padding-left: 25px;">
+                        <li><strong>Approximate k-nearest neighbor search</strong> (NN-descent), which is sub-quadratic: <strong>O(N log N)</strong></li>
+                        <li>Optimization cost: <strong>O(kN · E)</strong> where k = number of neighbors, E = epochs</li>
+                        <li>Uses <strong>sparse graphs and sampling</strong> → never processes all N² pairs</li>
+                    </ul>
+                </div>
+                
+                <!-- Scalability Comparison -->
+                <div class="tech-card" style="background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%); border-left: 4px solid #dc3545; padding: 25px;">
+                    <h3 style="color: #721c24; margin-bottom: 15px;">📊 Scalability Reality</h3>
+                    
+                    <ul style="color: #721c24; font-size: 1.05rem; line-height: 1.9; margin: 0; padding-left: 25px;">
+                        <li>tsNET relies on <strong>dense matrices and full pairwise updates</strong> → scales poorly as N grows</li>
+                        <li><strong>UMAP handles millions of points</strong>, <strong>tsNET limited to thousands</strong> due to memory/runtime constraints</li>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>
