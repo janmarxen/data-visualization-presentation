@@ -18,8 +18,9 @@
                     <h3 style="color: #856404; margin-bottom: 12px; font-size: 1.6rem;">⚙️ tsNET</h3>
                     
                     <ul style="color: #856404; font-size: 0.95rem; line-height: 1.6; margin: 0; padding-left: 25px;">
-                        <li>Represents the graph as a <strong>complete pairwise distance matrix</strong> D ∈ ℝ<sup>N×N</sup> <strong>O(N²)</strong></li>
-                        <li>Uses <strong>graph-theoretic shortest-path distances</strong> (e.g., Floyd-Warshall or Dijkstra) <strong>O(N²)</strong></li>
+                        <li>Uses <strong>complete pairwise distance matrix</strong> D ∈ ℝ<sup>N×N</sup> <strong>O(N²)</strong></li>
+                        <li>Computes <strong>graph-theoretic shortest-path distances</strong> (e.g., Dijkstra) <strong>O(N²)</strong></li>
+                        <li>Scales poorly. Limited to <strong>thousands of points</strong> due to memory/runtime constraints</li>
                     </ul>
                 </div>
                 
@@ -29,18 +30,8 @@
                     
                     <ul style="color: #155724; font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 25px;">
                         <li><strong>Approximate k-nearest neighbor search</strong> (NN-descent), sub-quadratic: <strong>O(N log N)</strong></li>
-                        <li>Optimization cost: <strong>O(kN · E)</strong> where k = number of neighbors, E = epochs</li>
                         <li>Uses <strong>sparse graphs and sampling</strong> → never processes all N² pairs</li>
-                    </ul>
-                </div>
-                
-                <!-- Scalability Comparison -->
-                <div class="tech-card" style="background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%); border-left: 4px solid #dc3545; padding: 20px;">
-                    <h3 style="color: #721c24; margin-bottom: 12px; font-size: 1.5rem;">📊 Scalability Reality</h3>
-                    
-                    <ul style="color: #721c24; font-size: 0.9rem; line-height: 1.6; margin: 0; padding-left: 25px;">
-                        <li>tsNET relies on <strong>dense matrices and full pairwise updates</strong> → scales poorly as N grows</li>
-                        <li><strong>UMAP handles millions of points</strong>, <strong>tsNET limited to thousands</strong> due to memory/runtime constraints</li>
+                        <li>Handles <strong>millions of points</strong></li>
                     </ul>
                 </div>
                 
