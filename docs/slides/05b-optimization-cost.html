@@ -1,0 +1,54 @@
+<div class="slide active">
+  <h2>t-SNE & tsNET: Optimization & Cost</h2>
+  <div class="center-content">
+    <div style="max-width: 950px; margin: 0 auto;">
+      <!-- Step 4: Optimization (from t-SNE) -->
+      <div class="tech-card" style="border: 2px solid #6c757d; margin-bottom: 20px;">
+        <h3 style="color: #343a40; margin-bottom: 12px;">4️⃣ Make Them Match (Optimization)</h3>
+        <p style="color: #333; font-size: 1rem; margin-bottom: 10px;">
+          Minimize the <strong>Kullback-Leibler divergence</strong> between \(p_{ij}\) and \(q_{ij}\):
+          \[
+            C_{KL} = \sum_{i \ne j} p_{ij}\,\log \frac{p_{ij}}{q_{ij}}
+          \]
+        </p>
+        <div class="why-section">
+          <div class="why-title">💡 What Happens?</div>
+          Moves 2D points so that \(q_{ij}\) matches \(p_{ij}\) (weighted by \(p_{ij}\)). When matched perfectly, \(\log(p_{ij}/q_{ij}) = 0\). 
+        </div>
+      </div>
+      <!-- Step 5: Enhanced Cost Function (from tsNET) -->
+      <div class="tech-card" style="border: 2px solid #17a2b8;">
+        <h3 style="color: #0c5460; margin-bottom: 12px;">5️⃣ Enhanced Cost Function</h3>
+        <p style="color: #333; font-size: 1rem; margin-bottom: 16px;">
+          \[
+            C = \lambda_{KL}\,C_{KL} + \frac{\lambda_c}{2N}\sum_i \|y_i\|^2 - \frac{\lambda_r}{2N^2}\sum_{\substack{i,j \\ i \ne j}} \log(\|y_i - y_j\| + \varepsilon_r)
+          \]
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px;">
+          <div class="comparison-item">
+            <strong style="color: #6c757d;">Term 1: KL Divergence</strong>
+            <p style="font-size: 0.9rem; margin: 8px 0 0 0; color: #495057;">
+              Original t-SNE term 
+            </p>
+          </div>
+          <div class="comparison-item">
+            <strong style="color: #fd7e14;">Term 2: Compression</strong>
+            <p style="font-size: 0.9rem; margin: 8px 0 0 0; color: #495057;">
+              Pulls nodes toward origin
+            </p>
+          </div>
+          <div class="comparison-item">
+            <strong style="color: #20c997;">Term 3: Entropy</strong>
+            <p style="font-size: 0.9rem; margin: 8px 0 0 0; color: #495057;">
+              Repels nodes to prevent clutter 
+            </p>
+          </div>
+        </div>
+        <div class="why-section">
+          <div class="why-title">⚙️ Parameter Notes</div>
+          Weights \(\lambda_{KL}\), \(\lambda_c\), and \(\lambda_r\) control each term's impact and <strong>change during optimization</strong>. Regularization constant \(\varepsilon_r = \frac{1}{20}\) handles nearly co-located nodes.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

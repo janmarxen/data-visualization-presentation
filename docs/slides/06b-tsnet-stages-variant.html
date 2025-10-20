@@ -1,0 +1,36 @@
+<div class="slide active">
+  <h2>tsNET: Optimization Stages & Variant</h2>
+  <div class="center-content">
+    <div style="max-width: 950px; margin: 0 auto;">
+      <!-- Step 6: Three-Stage Optimization (from tsNET) -->
+      <div class="tech-card" style="border: 2px solid #28a745;">
+        <h3 style="color: #155724; margin-bottom: 12px;">6️⃣ Three-Stage Optimization (tsNET)</h3>
+        <div class="stage-box">
+          <strong>Stage 1: Random Initialization</strong><br>
+          Initialize 2D positions \(\{y_i\}_{i=1}^N\) randomly
+        </div>
+        <div class="stage-box">
+          <strong>Stage 2: Fast Untangling</strong><br>
+          Parameters: \((\lambda_{KL}, \lambda_c, \lambda_r) = (1, 1.2, 0)\)<br>
+        </div>
+        <div class="stage-box">
+          <strong>Stage 3: Final Refinement</strong><br>
+          Parameters: \((\lambda_{KL}, \lambda_c, \lambda_r) = (1, 0.01, 0.6)\)<br>
+        </div>
+        <div class="why-section">
+          <div class="why-title">💡 Why Three Stages?</div>
+          Stage 2 uses strong compression to untangle the random graph. Stage 3 reduces compression and adds entropy.
+        </div>
+      </div>
+      <!-- Step 7: tsNET* Variant (from tsNET) -->
+      <div class="tech-card" style="border: 2px solid #2196f3;">
+        <h3 style="color: #0d47a1; margin-bottom: 12px;">7️⃣ tsNET* (Improved Variant)</h3>
+        <p style="color: #333; font-size: 0.95rem; margin-bottom: 10px;">
+          <strong>Stage 1:</strong> Initialize with <strong>PivotMDS</strong> instead of random positions<br>
+          <strong>Stage 2:</strong> Use \((\lambda_{KL}, \lambda_c, \lambda_r) = (1, 0.1, 0)\) - lower compression to preserve PivotMDS structure<br>
+          <strong>Stage 3:</strong> Unchanged from tsNET
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

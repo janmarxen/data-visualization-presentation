@@ -198,25 +198,28 @@
     
     <script>
         const slides = [
-            // Title and Introduction
-            { file: 'slides/01-title.html', title: 't-SNE for Graph Layouts' },
-            { file: 'slides/02-problem-description.html', title: 'The Challenge of Graph Layouts' },
-            { file: 'slides/03-tsne-promise.html', title: 'The Promise of t-SNE' },
-            { file: 'slides/04-distance-vs-neighborhood.html', title: 'Distance vs Neighborhood Preserving' },
-            
-            // Mathematical Explanation (slides 5-7)
-            { file: 'slides/05-tSNE.html', title: 't-distributed Stochastic Neighbor Embedding (t-SNE)' },
-            { file: 'slides/06-tsNET.html', title: 'tsNET: Graph Layout by t-SNE' },
-            { file: 'slides/07-ComputationalAspects.html', title: 'tsNET: Implementation' },
-            
-            // Results and Evaluation
-            { file: 'slides/08-results.html', title: 'Visual Results' },
-            { file: 'slides/09-modern-alternatives.html', title: 'Modern Alternatives' },
-            { file: 'slides/10-opinions.html', title: 'Opinions' },
-            
-            // Closing
-            { file: 'closing.html', title: 'Thank You' }
-        ];
+                // Title and Introduction
+                { file: 'slides/01-title.html', title: 't-SNE for Graph Layouts' },
+                { file: 'slides/02-problem-description.html', title: 'The Challenge of Graph Layouts' },
+                { file: 'slides/03-tsne-promise.html', title: 'The Promise of t-SNE' },
+                { file: 'slides/04-distance-vs-neighborhood.html', title: 'Distance vs Neighborhood Preserving' },
+
+                // Mathematical Explanation (updated)
+                { file: 'slides/05-tSNE.new.html', title: 't-distributed Stochastic Neighbor Embedding (t-SNE)' },      
+                { file: 'slides/05b-optimization-cost.html', title: 't-SNE & tsNET: Optimization & Cost' },
+                { file: 'slides/06b-tsnet-stages-variant.html', title: 'tsNET: Optimization Stages & Variant' },
+
+                // Results and Evaluation
+                { file: 'slides/07-results.html', title: 'Visual Results' },
+                { file: 'slides/08-modern-alternatives.html', title: 'Modern Alternatives' },
+                { file: 'slides/09-opinions.html', title: 'Opinions' },
+
+                // Closing
+                { file: 'closing.html', title: 'Thank You' },
+
+                // Backup
+                { file: 'slides/10-backup-open-question.html', title: 'Backup: Open Question' }
+            ];
         
         let currentSlide = 0;
         const slideCounter = document.getElementById('slideCounter');

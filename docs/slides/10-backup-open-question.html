@@ -1,0 +1,56 @@
+<div class="slide active">
+  <h2>tsNET: Implementation</h2>
+
+  <div class="center-content">
+    <div style="max-width: 950px; margin: 0 auto;">
+      <!-- Step 8: Computational Aspects -->
+      <div class="tech-card" style="border: 2px solid #6c757d; margin-bottom: 20px;">
+        <h3 style="color: #343a40; margin-bottom: 12px;">8️⃣ Computational Aspects</h3>
+        
+        <div class="comparison-item" style="margin-bottom: 16px;">
+          <h4 style="color: #495057; margin: 0 0 10px 0;">Optimization with Momentum-based Gradient Descent</h4>
+          <p style="color: #333; font-size: 0.95rem; margin: 0;">
+            As in classical t-SNE, minimize the cost function \(C\) with accumulated velocity to escape local minima.
+          </p>
+        </div>
+
+        <div class="comparison-item" style="margin-bottom: 16px;">
+          <h4 style="color: #495057; margin: 0 0 10px 0;">Complexity</h4>
+          <div style="color: #333; font-size: 0.95rem;">
+            <div style="margin-bottom: 8px;">
+              <strong>Space:</strong> \(\mathcal{O}(N^2)\)<br>
+              <span style="color: #666; font-size: 0.9rem; margin-left: 20px;">
+                Stores distance matrix \(d_{ij}\) and probability matrices \(p_{ij}\), \(q_{ij}\)
+              </span>
+            </div>
+            <div>
+              <strong>Time:</strong> \(\mathcal{O}(tN^2)\)<br>
+              <span style="color: #666; font-size: 0.9rem; margin-left: 20px;">
+                Each iteration computes gradients over all \(N^2\) node pairs
+              </span>
+            </div>
+          </div>
+          
+          <div style="background: #f8f9fa; padding: 10px; border-radius: 4px; margin-top: 12px; font-size: 0.9rem; color: #666;">
+            <strong style="color: #495057;">Note:</strong> One-time \(\mathcal{O}(N^2)\) preprocessing for shortest-path distances.
+          </div>
+        </div>
+
+        <div class="why-section">
+          <div class="why-title">⚡ Key Efficiency Feature</div>
+          The <strong>compression term</strong> (term 2 in cost function) significantly reduces optimization steps \(t\) - a distinctive advantage.
+        </div>
+      </div>
+
+      <!-- Step 9: Open Questions -->
+      <div class="tech-card" style="border: 2px solid #ffc107;">
+        <h3 style="color: #856404; margin-bottom: 12px;">9️⃣ Open Question</h3>
+
+        <div class="question-box">
+          <strong style="color: #f57c00;">🎯 Parameter Tuning</strong><br>
+          <span style="color: #666;"> How to determine optimal \(\lambda_{KL}\), \(\lambda_c\), \(\lambda_r\)?</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -50,23 +50,6 @@
           High-dimensional space has more room than 2D. A Gaussian would squeeze distant points too close together.
         </div>
       </div>
-
-      <!-- Step 4: Optimization -->
-      <div class="tech-card" style="border: 2px solid #6c757d;">
-        <h3 style="color: #343a40; margin-bottom: 12px;">4️⃣ Make Them Match (Optimization)</h3>
-        
-        <p style="color: #333; font-size: 1rem; margin-bottom: 10px;">
-          Minimize the <strong>Kullback-Leibler divergence</strong> between \(p_{ij}\) and \(q_{ij}\):
-          \[
-            C_{KL} = \sum_{i \ne j} p_{ij}\,\log \frac{p_{ij}}{q_{ij}}
-          \]
-        </p>
-        
-        <div class="why-section">
-          <div class="why-title">💡 What Happens?</div>
-          Moves 2D points so that \(q_{ij}\) matches \(p_{ij}\) (weighted by \(p_{ij}\)). When matched perfectly, \(\log(p_{ij}/q_{ij}) = 0\). 
-        </div>
-      </div>
     </div>
   </div>
 </div>
